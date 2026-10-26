@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#102b25"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>MTT – Quản lý bán xe</title>
+<style>
+:root{--navy:#092b63;--green:#1769e8;--mint:#eaf2ff;--bg:#f4f7fc;--ink:#17231e;--muted:#66756d;--line:#dfe8f7;--white:#fff;--red:#b42318;--amber:#9a6700}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 13px;background:var(--green);color:white;font-weight:650}button.secondary{background:#edf3ff;color:var(--ink);border:1px solid var(--line)}button.danger{background:#fff0ef;color:var(--red);border:1px solid #ffd5d2}button:disabled{opacity:.45;cursor:not-allowed}.app{display:grid;grid-template-columns:235px 1fr;min-height:100vh}.sidebar{background:var(--navy);color:white;padding:22px 14px}.brand{display:flex;align-items:center;gap:11px;padding:0 8px 25px}.logo{width:43px;height:43px;border-radius:13px;background:#eaf2ff;color:var(--green);display:grid;place-items:center;font-size:21px;font-weight:900}.brand strong{font-size:20px;letter-spacing:1px}.brand small{display:block;color:#b9cbea;font-size:11px}.navlabel{color:#9ab5e3;font-size:11px;font-weight:800;letter-spacing:1px;padding:14px 10px 7px}.nav{width:100%;text-align:left;background:transparent;color:#dbe7ff;border-radius:9px;padding:11px 12px;margin:2px 0;font-weight:550}.nav.active,.nav:hover{background:#174b9b;color:white}.sidefoot{font-size:11px;color:#a8c0e8;margin:30px 8px 0}.main{min-width:0}.topbar{background:white;border-bottom:1px solid var(--line);padding:15px 25px;display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0;z-index:5}.topbar h2{margin:0;font-size:18px}.topbar p{margin:3px 0 0;color:var(--muted);font-size:12px}.topactions{display:flex;align-items:center;gap:8px}.role{border:1px solid var(--line);border-radius:10px;padding:9px;background:white;max-width:190px}.content{padding:24px;max-width:1400px;margin:auto}.pagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:20px}.pagehead h1{font-size:25px;margin:0 0 4px}.sub{color:var(--muted);margin:0}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:20px}.metric,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:17px}.metric .label{color:var(--muted);font-size:12px;font-weight:650}.metric .value{font-size:23px;font-weight:800;margin:7px 0 4px;letter-spacing:-.4px;overflow-wrap:anywhere}.metric .hint{color:var(--muted);font-size:11px}.positive{color:var(--green)!important}.negative{color:var(--red)!important}.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:15px}.panel h3{margin:0 0 14px;font-size:16px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.panelhead h3{margin:0}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:600px}th,td{text-align:left;border-bottom:1px solid #edf2fa;padding:12px 10px;vertical-align:middle}th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:750}td{font-size:13px}tbody tr:last-child td{border-bottom:0}.muted{color:var(--muted)}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--mint);color:var(--green);font-size:11px;font-weight:750}.pill.red{background:#fff0ef;color:var(--red)}.pill.gray{background:#eef1ef;color:#536159}.bar{height:8px;border-radius:99px;background:#edf2fa;overflow:hidden}.bar span{display:block;height:100%;background:var(--green);border-radius:99px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:750;color:#4b5f7d}.field input,.field select,.field textarea{width:100%;border:1px solid #d6e2f5;border-radius:9px;padding:10px;background:white;min-width:0}.field input:focus,.field select:focus{outline:2px solid #b9d1ff;border-color:var(--green)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{border:1px solid var(--line);background:white;padding:10px;border-radius:9px}.toolbar input{flex:1;min-width:180px}.empty{text-align:center;color:var(--muted);padding:30px}.hidden{display:none!important}.notice{border:1px solid #c9dcff;background:#f0f6ff;padding:12px;border-radius:10px;color:#164b9a;font-size:12px;margin-bottom:16px}.warning{border:1px solid #f1d7a2;background:#fff8e7;color:#775500;padding:12px;border-radius:10px;font-size:12px;margin-bottom:16px}.bikegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.bikecard{background:white;border:1px solid var(--line);border-radius:14px;overflow:hidden}.bikephoto{height:105px;background:linear-gradient(135deg,#e3edff,#f5f8ff);display:grid;place-items:center;font-size:42px}.bikebody{padding:13px}.bikebody h3{margin:0 0 4px;font-size:15px}.bikebody p{margin:3px 0;color:var(--muted);font-size:12px}.bikeprice{font-weight:800;font-size:18px;margin:10px 0}.mobilehint{font-size:11px;color:var(--muted);margin-top:14px}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}.bikegrid{grid-template-columns:repeat(2,minmax(0,1fr))}.app{grid-template-columns:190px 1fr}.content{padding:18px}}
+@media(max-width:700px){.app{display:block}.sidebar{padding:10px;display:flex;align-items:center;gap:7px;overflow:auto}.brand{padding:0 6px 0 0;flex-shrink:0}.logo{width:36px;height:36px}.brand strong{font-size:16px}.brand small,.navlabel,.sidefoot{display:none}.nav{width:auto;white-space:nowrap;margin:0;padding:9px 10px;font-size:12px}.topbar{padding:12px 14px}.topbar p{display:none}.topactions{gap:5px}.role{max-width:125px;font-size:11px;padding:8px}.content{padding:14px}.pagehead h1{font-size:21px}.cards{gap:9px}.metric{padding:12px}.metric .value{font-size:19px}.metric .label{font-size:11px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.bikegrid{grid-template-columns:1fr 1fr}.bikephoto{height:75px}.bikebody{padding:10px}.bikebody h3{font-size:13px}.bikeprice{font-size:15px}.topactions button{padding:8px;font-size:11px}}
+</style>
+</head>
+<body>
+<section id="loginScreen" style="max-width:460px;margin:8vh auto;padding:24px">
+<div class="brand" style="color:#092b63"><div class="logo">M</div><div><strong>MTT</strong><small style="color:#66756d">QUẢN LÝ BÁN XE</small></div></div>
+<div class="panel"><h1 style="margin-top:0">Đăng nhập</h1><p class="sub">Đăng nhập tài khoản đã được chủ cửa hàng cấp quyền.</p><p id="loginStatus" class="notice" role="status" aria-live="polite">Đang kiểm tra cấu hình kết nối…</p>
+<form id="loginForm"><div class="field"><label for="loginIdentity">Email đăng nhập</label><input id="loginIdentity" autocomplete="username" required type="email" placeholder="Email tài khoản"></div><div class="field" style="margin-top:12px"><label for="loginPassword">Mật khẩu</label><input id="loginPassword" type="password" autocomplete="current-password" required></div><div class="actions"><button id="loginSubmit" type="submit">Đăng nhập MTT</button></div></form>
+<details style="margin-top:24px" id="connectionDetails"><summary>Cấu hình kết nối Supabase</summary><form id="connectionForm" style="margin-top:12px"><div class="field"><label for="projectUrl">Project URL</label><input id="projectUrl" type="url" placeholder="https://….supabase.co" required></div><div class="field"><label for="publicKey">Publishable key hoặc anon key</label><input id="publicKey" autocomplete="off" required placeholder="Chỉ dùng khóa công khai"></div><p class="muted">Không nhập service_role key hoặc mật khẩu cơ sở dữ liệu.</p><button type="submit">Lưu kết nối</button></form></details></div></section>
+<div class="app hidden" id="appShell">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">M</div><div><strong>MTT</strong><small>QUẢN LÝ BÁN XE</small></div></div>
+  <div class="navlabel">TỔNG QUAN</div>
+  <button class="nav active" data-page="dashboard">▦ &nbsp; Bảng điều khiển</button>
+  <button class="nav" data-page="inventory">▣ &nbsp; Kho xe</button>
+  <button class="nav" data-page="sales">↗ &nbsp; Bán hàng</button>
+  <div class="navlabel">QUẢN LÝ</div>
+  <button class="nav" data-page="targets">◎ &nbsp; Chỉ tiêu nhân viên</button>
+  <button class="nav" data-page="expenses">▤ &nbsp; Chi phí cửa hàng</button>
+  <button class="nav" data-page="reports">▥ &nbsp; Báo cáo</button>
+  <button class="nav" data-page="users" id="usersNav">♙ &nbsp; Tài khoản & quyền</button>
+  <div class="sidefoot">MTT · Quản lý bán xe<br>Quản lý xe máy & kinh doanh</div>
+</aside>
+<main class="main">
+<header class="topbar"><div><h2 id="topTitle">Bảng điều khiển</h2><p>Quản lý kho, bán hàng và hiệu quả kinh doanh</p></div><div class="topactions"><span id="accountLabel"></span><button class="secondary" id="syncBtn">Đồng bộ</button><button class="secondary" id="logoutBtn">Đăng xuất</button></div></header>
+<div class="content">
+<div class="notice" id="syncStatus" role="status" aria-live="polite">Chưa kết nối máy chủ.</div><div class="actions" style="margin-bottom:18px"><button class="secondary ownerOnly" id="mttExport">Xuất sao lưu</button><button class="secondary ownerOnly" id="mttImport">Nhập sao lưu</button><input id="mttBackupFile" type="file" accept=".json,application/json" hidden></div>
+<section id="page-dashboard" class="page">
+  <div class="pagehead"><div><h1>Tổng quan kinh doanh</h1><p class="sub">Theo dõi tình hình bán xe và vốn tồn kho.</p></div><button data-goto="inventory" class="ownerOnly">＋ Nhập xe</button></div>
+  <div class="cards" id="dashboardMetrics"></div>
+  <div class="grid2">
+    <div class="panel"><div class="panelhead"><h3>Giao dịch gần đây</h3><button class="secondary" data-goto="sales">Xem bán hàng</button></div><div class="tablewrap" id="recentSales"></div></div>
+    <div class="panel"><h3>Tiến độ chỉ tiêu tháng</h3><div id="targetSummary"></div></div>
+  </div>
+</section>
+<section id="page-inventory" class="page hidden">
+  <div class="pagehead"><div><h1>Kho xe</h1><p class="sub">Hồ sơ xe, biển số, giá vốn và số lượng tồn.</p></div><button id="addBikeBtn" class="ownerOnly">＋ Nhập xe mới</button></div>
+  <div class="cards" id="inventoryMetrics"></div>
+  <div class="toolbar"><input id="inventorySearch" placeholder="Tìm biển số, hãng, mẫu xe, màu sơn…"><select id="stockFilter"><option value="all">Tất cả trạng thái</option><option value="in">Còn hàng</option><option value="out">Hết hàng</option></select></div>
+  <div id="inventoryTable" class="panel"></div>
+  <div id="bikeFormPanel" class="panel hidden" style="margin-top:15px"><div class="panelhead"><h3 id="bikeFormTitle">Nhập xe vào kho</h3><button class="secondary" id="closeBikeForm">Đóng</button></div><form id="bikeForm"><input type="hidden" id="bikeId"><div class="formgrid">
+    <div class="field"><label>Hãng xe *</label><input id="brand" required placeholder="Honda, Yamaha…"></div>
+    <div class="field"><label>Mẫu xe *</label><input id="model" required placeholder="Vision, Air Blade…"></div>
+    <div class="field"><label>Đời xe</label><input id="year" placeholder="2022"></div>
+    <div class="field"><label>Màu sơn</label><input id="color" placeholder="Đen nhám"></div>
+    <div class="field"><label>Biển số</label><input id="plate" placeholder="29X1-123.45"></div>
+    <div class="field"><label>Số khung / số máy</label><input id="serial" placeholder="Thông tin định danh"></div>
+    <div class="field"><label>Giá vốn / xe (VNĐ) *</label><input id="cost" type="number" min="0" required></div>
+    <div class="field"><label>Giá bán / xe (VNĐ) *</label><input id="price" type="number" min="0" required></div>
+    <div class="field"><label>Chi phí sửa chữa / xe (VNĐ)</label><input id="repair" type="number" min="0" value="0"></div>
+    <div class="field"><label>Số lượng nhập *</label><input id="qty" type="number" min="1" value="1" required></div>
+    <div class="field full"><label>Ảnh xe (tối đa 1,5 MB)</label><input id="photo" type="file" accept="image/*" capture="environment"><div id="photoPreview" class="muted"></div></div>
+    <div class="field full"><label>Ghi chú</label><input id="bikeNote" placeholder="Tình trạng xe, phụ tùng đã thay…"></div>
+  </div><div class="actions"><button type="submit">Lưu hồ sơ xe</button><button type="button" class="secondary" id="cancelBike">Hủy</button></div></form></div>
+</section>
+<section id="page-sales" class="page hidden">
+  <div class="pagehead"><div><h1>Bán hàng</h1><p class="sub">Ghi nhận xe bán ra và tự động cập nhật tồn kho.</p></div></div>
+  <div class="panel"><h3>Ghi nhận giao dịch bán xe</h3><form id="saleForm"><div class="formgrid">
+    <div class="field"><label>Nhân viên bán hàng *</label><input id="seller" required placeholder="Tên nhân viên"></div>
+    <div class="field"><label>Chọn xe còn hàng *</label><select id="saleBike" required></select></div>
+    <div class="field"><label>Số lượng bán *</label><input id="saleQty" type="number" min="1" value="1" required></div>
+    <div class="field"><label>Giá bán thực tế / xe (VNĐ) *</label><input id="salePrice" type="number" min="0" required></div>
+    <div class="field"><label>Ngày bán *</label><input id="saleDate" type="date" required></div>
+    <div class="field"><label>Ghi chú / mã đơn</label><input id="saleNote" placeholder="Không bắt buộc"></div>
+  </div><div class="actions"><button type="submit">✓ Xác nhận bán xe</button></div></form><p class="mobilehint">Giao dịch chỉ hoàn tất khi máy chủ xác nhận. Nếu tồn kho đã thay đổi trên thiết bị khác, hãy đồng bộ và kiểm tra lại.</p></div>
+  <div class="panel" style="margin-top:15px"><div class="panelhead"><h3>Lịch sử bán xe</h3><input id="salesSearch" placeholder="Tìm nhân viên / biển số / mẫu xe" style="max-width:300px;border:1px solid var(--line);border-radius:9px;padding:9px"></div><div id="salesTable" class="tablewrap"></div></div>
+</section>
+<section id="page-targets" class="page hidden">
+  <div class="pagehead"><div><h1>Chỉ tiêu nhân viên</h1><p class="sub">Theo dõi chỉ tiêu số lượng và doanh thu theo tháng.</p></div><button id="addTargetBtn" class="ownerOnly">＋ Thiết lập chỉ tiêu</button></div>
+  <div id="targetsContent"></div>
+  <div id="targetFormPanel" class="panel hidden" style="margin-top:15px"><h3>Thiết lập chỉ tiêu</h3><form id="targetForm"><div class="formgrid"><div class="field"><label>Tên nhân viên *</label><input id="targetName" required></div><div class="field"><label>Tháng áp dụng *</label><input id="targetMonth" type="month" required></div><div class="field"><label>Chỉ tiêu số xe *</label><input id="targetQty" type="number" min="0" value="120" required></div><div class="field"><label>Chỉ tiêu doanh thu (VNĐ) *</label><input id="targetMoney" type="number" min="0" value="1800000000" required></div></div><div class="actions"><button type="submit">Lưu chỉ tiêu</button><button type="button" class="secondary" id="cancelTarget">Hủy</button></div></form></div>
+</section>
+<section id="page-expenses" class="page hidden">
+  <div class="pagehead"><div><h1>Chi phí cửa hàng</h1><p class="sub">Theo dõi chi phí vận hành theo tháng.</p></div><button id="addExpenseBtn" class="ownerOnly">＋ Thêm chi phí</button></div>
+  <div class="cards" id="expenseMetrics"></div>
+  <div id="expenseFormPanel" class="panel hidden" style="margin-bottom:15px"><h3>Ghi nhận chi phí</h3><form id="expenseForm"><div class="formgrid"><div class="field"><label>Loại chi phí *</label><select id="expenseType"><option>Thuê mặt bằng</option><option>Lương nhân viên</option><option>Điện</option><option>Nước</option><option>Quỹ phúc lợi</option><option>Hao mòn tài sản</option><option>Marketing</option><option>Chi phí khác</option></select></div><div class="field"><label>Số tiền (VNĐ) *</label><input id="expenseAmount" type="number" min="0" required></div><div class="field"><label>Ngày chi *</label><input id="expenseDate" type="date" required></div><div class="field"><label>Ghi chú</label><input id="expenseNote"></div></div><div class="actions"><button type="submit">Lưu chi phí</button><button type="button" class="secondary" id="cancelExpense">Hủy</button></div></form></div>
+  <div class="panel"><div class="panelhead"><h3>Danh sách chi phí</h3><select id="expenseMonth" style="border:1px solid var(--line);border-radius:9px;padding:9px"></select></div><div id="expensesTable" class="tablewrap"></div></div>
+</section>
+<section id="page-reports" class="page hidden">
+  <div class="pagehead"><div><h1>Báo cáo kinh doanh</h1><p class="sub">Tổng hợp doanh thu, vốn, chi phí và lợi nhuận theo kỳ.</p></div><select id="reportPeriod" style="border:1px solid var(--line);border-radius:9px;padding:10px"><option value="day">Hôm nay</option><option value="month" selected>Tháng này</option><option value="year">Năm nay</option><option value="all">Toàn thời gian</option></select></div>
+  <div class="cards" id="reportMetrics"></div><div class="panel"><h3>Tóm tắt kỳ báo cáo</h3><div id="reportBreakdown"></div></div>
+</section>
+<section id="page-users" class="page hidden">
+  <div class="pagehead"><div><h1>Tài khoản & phân quyền</h1><p class="sub">Quyền tài khoản được xác nhận tại máy chủ.</p></div></div>
+  <div class="notice">Tài khoản phải được chủ cửa hàng phê duyệt. Nhân viên không nhận dữ liệu giá vốn, chi phí và lợi nhuận.</div>
+  <div class="panel"><h3>Quyền tài khoản</h3><div class="tablewrap"><table><thead><tr><th>Chức năng</th><th>Chủ cửa hàng</th><th>Nhân viên</th></tr></thead><tbody>
+  <tr><td>Xem toàn bộ kho / giá vốn</td><td><span class="pill">Cho phép</span></td><td><span class="pill red">Từ chối</span></td></tr>
+  <tr><td>Xem giá bán và số lượng tồn</td><td><span class="pill">Cho phép</span></td><td><span class="pill">Cho phép</span></td></tr>
+  <tr><td>Nhập xe / sửa giá / chỉnh tồn</td><td><span class="pill">Cho phép</span></td><td><span class="pill red">Từ chối</span></td></tr>
+  <tr><td>Ghi nhận bán xe</td><td><span class="pill">Cho phép</span></td><td><span class="pill">Theo quyền</span></td></tr>
+  <tr><td>Xem chi phí và lợi nhuận</td><td><span class="pill">Cho phép</span></td><td><span class="pill red">Từ chối</span></td></tr>
+  <tr><td>Xem doanh thu</td><td><span class="pill">Toàn cửa hàng</span></td><td><span class="pill">Theo phân quyền</span></td></tr>
+  </tbody></table></div></div>
+</section>
+</div></main></div>
+<script src="vendor/supabase.js"></script>
+<script src="config.js"></script>
+<script src="validation.js"></script>
+<script src="app.js"></script>
+<script src="cloud.js"></script>
+</body></html>
