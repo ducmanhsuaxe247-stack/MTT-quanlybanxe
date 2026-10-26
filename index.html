@@ -15,6 +15,10 @@
 <div class="brand" style="color:#092b63"><img class="logo" src="icon-192.png" alt="M247" width="43" height="43"><div><strong>MTT</strong><small style="color:#66756d">QUẢN LÝ BÁN XE</small></div></div>
 <div class="panel"><h1 style="margin-top:0">Đăng nhập</h1><p class="sub">Đăng nhập tài khoản đã được chủ cửa hàng cấp quyền.</p><p id="loginStatus" class="notice" role="status" aria-live="polite">Đang kiểm tra cấu hình kết nối…</p>
 <form id="loginForm"><div class="field"><label for="loginIdentity">Email đăng nhập</label><input id="loginIdentity" autocomplete="username" required type="email" placeholder="Email tài khoản"></div><div class="field" style="margin-top:12px"><label for="loginPassword">Mật khẩu</label><input id="loginPassword" type="password" autocomplete="current-password" required></div><div class="actions"><button id="loginSubmit" type="submit">Đăng nhập MTT</button></div></form>
+<details style="margin-top:24px"><summary>Nhân viên: đăng ký / đăng nhập bằng Gmail</summary>
+<form id="requestForm" style="margin-top:16px"><div class="field"><label for="requestName">Họ và tên</label><input id="requestName" autocomplete="name" minlength="2" maxlength="100" required></div><div class="field"><label for="requestEmail">Gmail của bạn</label><input id="requestEmail" type="email" autocomplete="email" maxlength="254" pattern="[a-zA-Z0-9._%+\-]+@gmail\.com" required></div><p>Gửi yêu cầu để chủ cửa hàng duyệt quyền sử dụng.</p><button id="requestSubmit">Gửi yêu cầu cấp quyền</button></form>
+<p id="requestStatus" role="status" aria-live="polite"></p>
+<form id="staffLoginForm"><div class="field"><label for="staffEmail">Gmail đã đăng ký</label><input id="staffEmail" type="email" autocomplete="email" required></div><p>Nhận liên kết qua Gmail để xác minh và đăng nhập sau khi được duyệt.</p><button id="staffLoginSubmit" class="secondary">Gửi liên kết đăng nhập</button></form><p id="staffLoginStatus" role="status" aria-live="polite"></p></details>
 <details style="margin-top:24px" id="connectionDetails"><summary>Cấu hình kết nối Supabase</summary><form id="connectionForm" style="margin-top:12px"><div class="field"><label for="projectUrl">Project URL</label><input id="projectUrl" type="url" placeholder="https://….supabase.co" required></div><div class="field"><label for="publicKey">Publishable key hoặc anon key</label><input id="publicKey" autocomplete="off" required placeholder="Chỉ dùng khóa công khai"></div><p class="muted">Không nhập service_role key hoặc mật khẩu cơ sở dữ liệu.</p><button type="submit">Lưu kết nối</button></form></details></div></section>
 <div class="app hidden" id="appShell">
 <aside class="sidebar">
@@ -34,7 +38,7 @@
 <header class="topbar"><div><h2 id="topTitle">Bảng điều khiển</h2><p>Quản lý kho, bán hàng và hiệu quả kinh doanh</p></div><div class="topactions"><span id="accountLabel"></span><button class="secondary" id="syncBtn">Đồng bộ</button><button class="secondary" id="logoutBtn">Đăng xuất</button></div></header>
 <div class="content">
 <div class="notice" id="syncStatus" role="status" aria-live="polite">Chưa kết nối máy chủ.</div><div class="actions" style="margin-bottom:18px"><button class="secondary ownerOnly" id="mttExport">Xuất sao lưu</button><button class="secondary ownerOnly" id="mttImport">Nhập sao lưu</button><input id="mttBackupFile" type="file" accept=".json,application/json" hidden></div>
-<section id="page-dashboard" class="page">
+<section id="page-dashboard" class="page"><div id="requestInbox" class="panel hidden" style="margin-bottom:18px"><h3>Yêu cầu cấp quyền</h3><p id="requestCount"></p><div id="dashboardRequests"></div></div>
   <div class="pagehead"><div><h1>Tổng quan kinh doanh</h1><p class="sub">Theo dõi tình hình bán xe và vốn tồn kho.</p></div><button data-goto="inventory" class="ownerOnly">＋ Nhập xe</button></div>
   <div class="cards" id="dashboardMetrics"></div>
   <div class="grid2">
@@ -91,15 +95,8 @@
 </section>
 <section id="page-users" class="page hidden">
   <div class="pagehead"><div><h1>Tài khoản & phân quyền</h1><p class="sub">Quyền tài khoản được xác nhận tại máy chủ.</p></div></div>
-  <div class="notice">Tài khoản phải được chủ cửa hàng phê duyệt. Nhân viên không nhận dữ liệu giá vốn, chi phí và lợi nhuận.</div>
-  <div class="panel"><h3>Quyền tài khoản</h3><div class="tablewrap"><table><thead><tr><th>Chức năng</th><th>Chủ cửa hàng</th><th>Nhân viên</th></tr></thead><tbody>
-  <tr><td>Xem toàn bộ kho / giá vốn</td><td><span class="pill">Cho phép</span></td><td><span class="pill red">Từ chối</span></td></tr>
-  <tr><td>Xem giá bán và số lượng tồn</td><td><span class="pill">Cho phép</span></td><td><span class="pill">Cho phép</span></td></tr>
-  <tr><td>Nhập xe / sửa giá / chỉnh tồn</td><td><span class="pill">Cho phép</span></td><td><span class="pill red">Từ chối</span></td></tr>
-  <tr><td>Ghi nhận bán xe</td><td><span class="pill">Cho phép</span></td><td><span class="pill">Theo quyền</span></td></tr>
-  <tr><td>Xem chi phí và lợi nhuận</td><td><span class="pill">Cho phép</span></td><td><span class="pill red">Từ chối</span></td></tr>
-  <tr><td>Xem doanh thu</td><td><span class="pill">Toàn cửa hàng</span></td><td><span class="pill">Theo phân quyền</span></td></tr>
-  </tbody></table></div></div>
+  <div class="notice">Chỉ chủ cửa hàng được duyệt và thu hồi quyền. Quản trị được quản lý kho, bán hàng, chi phí, báo cáo. Nhân viên bán hàng không xem giá vốn và lợi nhuận.</div>
+  <div class="panel"><h3>Yêu cầu và tài khoản</h3><button id="refreshRequests" class="secondary">Tải lại danh sách</button><p id="requestAdminStatus" role="status"></p><div id="allRequests"></div></div>
 </section>
 </div></main></div>
 <script src="vendor/supabase.js"></script>
@@ -107,4 +104,5 @@
 <script src="validation.js"></script>
 <script src="app.js"></script>
 <script src="cloud.js"></script>
+<script src="access.js"></script>
 </body></html>
