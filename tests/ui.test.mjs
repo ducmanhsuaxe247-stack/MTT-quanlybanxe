@@ -5,10 +5,10 @@ for(const el of document.querySelectorAll('select'))Object.defineProperty(el,'va
 for(const el of document.querySelectorAll('form'))el.reset=()=>{};
 for(const el of document.querySelectorAll('*'))el.scrollIntoView=()=>{};
 const alerts=[];const context={document,console,structuredClone,crypto:webcrypto,Intl,Date,Math,Number,JSON,Blob,URL,setInterval:()=>1,clearInterval:()=>{},setTimeout:()=>{},alert:x=>alerts.push(x),confirm:()=>true,localStorage:{getItem:()=>null,setItem:()=>{}},addEventListener:()=>{}};
-context.window=context;for(const el of document.querySelectorAll('[id]'))context[el.id]=el;
+context.supabase={createClient:()=>({auth:{signOut:async()=>({})}})};context.window=context;for(const el of document.querySelectorAll('[id]'))context[el.id]=el;
 vm.createContext(context);for(const f of ['validation.js','config.js','app.js','cloud.js'])vm.runInContext(await readFile(f,'utf8'),context,{filename:f});
 const run=s=>vm.runInContext(s,context);
-assert.match(document.getElementById('loginStatus').textContent,/Chưa kết nối/);assert.ok(document.getElementById('appShell').classList.contains('hidden'));
+assert.match(document.getElementById('loginStatus').textContent,/Kết nối đã cấu hình/);assert.ok(document.getElementById('appShell').classList.contains('hidden'));
 run("acceptState({data:sample(),revision:1,profile:{full_name:'Owner',role:'owner'}})");
 assert.match(document.getElementById('inventoryTable').textContent,/Vision/);assert.match(document.getElementById('reportBreakdown').textContent,/Lợi nhuận/);
 run("db.bikes[0].brand='<img src=x onerror=alert(1)>';render()");assert.equal(document.querySelectorAll('#inventoryTable img').length,0);assert.match(document.getElementById('inventoryTable').textContent,/<img/);

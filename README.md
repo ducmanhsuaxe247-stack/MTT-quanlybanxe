@@ -5,7 +5,7 @@ Existing UI, inventory, sales, targets, expenses, reports and JSON backup/import
 
 ## Deployment status
 
-The application code is ready for Supabase configuration. Real authentication and multi-device verification require access to the user's Supabase project. No credentials, users, live business data, or remote migrations have been created by this code change. This must not be reported as a working connected business system until the live checks below pass.
+The application is configured with the project public URL and publishable key. The cloud schema has been applied and anonymous/direct-table access checks passed. Existing business tables were empty and have been preserved. No Auth account exists yet: create the owner privately, approve it, and complete the live checks below before production use. PostgreSQL advisors flag the three authenticated SECURITY DEFINER RPCs intentionally: each enforces the approved profile and role server-side; direct table access is revoked. See https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable .
 
 ## Setup
 
