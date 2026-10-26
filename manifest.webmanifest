@@ -19,5 +19,8 @@
       "purpose": "any"
     }
   ],
-  "id": "./"
+  "id": "./",
+  "scope": "./",
+  "lang": "vi",
+  "prefer_related_applications": false
 }
