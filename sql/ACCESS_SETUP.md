@@ -1,18 +1,17 @@
-# Employee access requests
+# Device approval
 
-- Employees submit their full name and Gmail address; requests appear on the owner's dashboard.
-- Only the approved `owner` can approve `sales` (Nhân viên bán hàng), `editor` (Quản trị), or reject/revoke access.
-- Administrators manage inventory, sales, expenses, targets and reports, but cannot approve accounts or promote themselves to owner.
-- Typed email addresses do not establish identity. A verified Supabase email session is required before approved access is claimed.
-- Owner password login remains supported. No business data or auth session is persisted in browser storage.
+The requested flow has two inputs: employee name and contact Gmail. Gmail is self-declared, not verified and not used as an authentication credential. No verification email or manual password is required.
 
-## Required production configuration
+A browser generates a 256-bit random device credential, stores it locally, and submits its SHA-256 digest with a device request. Only an approved owner may approve sales or editor access. New browsers require separate approval. Clearing browser data loses the device credential. Avoid using a shared browser profile for this workflow.
 
-Before onboarding external employees:
-1. Configure an SMTP provider in Supabase Auth that can deliver to employee Gmail addresses. Supabase's default sender may restrict recipients.
-2. Add the deployed app root URL to Supabase Auth's allowed redirect URLs. The staff email sign-in callback consumes the Supabase implicit-flow URL fragment and removes it from the address bar.
-3. Authorize the intended visitors in Sites hosting. Owner-private hosting still blocks employee access even if database approval is granted. Do not broaden the hosting audience without the owner's explicit approval.
+`sql/device_access.sql` has been applied. It preserves previous access requests and business data. Server-only activation functions are restricted to service_role. Anonymous clients can submit requests but cannot read requests, activate a device, or approve roles. Pending registrations are capped globally at 100 per day.
 
-Apply `sql/access_requests.sql` to the existing database. It preserves current business records and owner profiles. Public intake has bounded inputs, one request per email, and a global daily cap. Repeated requests cannot overwrite an existing identity or approval. Direct table access is revoked; owner review and verified-email claim enforce authorization inside the database.
+The proposed `mtt-device-session` Edge Function authenticates requests using the device credential and checks owner approval. It creates only synthetic device identities; it never confirms or takes over the claimed Gmail identity. It uses Supabase's server-side admin key, never a browser-side secret. Revocation disables database access even for an existing session.
 
-The initial delivery validates database permissions and UI locally; real Gmail delivery and external employee access still require the configuration above and an end-to-end check.
+## Deployment
+
+The owner explicitly approved public registration and the server-side device account mechanism. The mtt-device-session Edge Function is deployed with its own device-secret authentication; verify_jwt=false allows pending devices to check approval.
+
+The employee screen has name and contact Gmail only. The owner password form is collapsed separately. Public hosting exposes the sign-in screen and assets, while database permissions gate all business records.
+
+Validation completed: isolated PostgreSQL tests for wrong device secrets, owner-only approval, sales restrictions, admin writes, anonymous access denial, and revocation. Production checks with a disposable synthetic device passed: pending status, owner approval, account creation, device sign-in, sales authorization, rejection of a wrong secret, and blocking access after revocation. No business records were modified.
